@@ -1,0 +1,91 @@
+Write 1 programs and submit on Autolab.
+
+We provide this ZIP FILE containing PolygonTransform.java. 
+
+Observe the following rules:
+
+DO NOT use System.exit().
+DO NOT add the project or package statements.
+DO NOT change the class name.
+DO NOT change the headers of ANY of the given methods.
+DO NOT add any new class fields.
+ONLY display the result as specified by the example for each problem.
+DO NOT print other messages, follow the examples for each problem.
+USE StdIn, StdOut, StdRandom, and StdDraw libraries.
+Polygon transform (25 points). Write a library of static methods that performs various geometric transforms on polygons. Mathematically, a polygon is defined by its sequence of vertices (x0, y 0), (x 1, y 1), (x 2, y 2), …. In Java, we will represent a polygon by storing the x– and y-coordinates of the vertices in two parallel arrays x[] and y[].
+
+
+// Represents the polygon with vertices (0, 0), (1, 0), (1, 2), (0, 1).
+double x[] = { 0, 1, 1, 0 };
+double y[] = { 0, 0, 2, 1 };
+Three useful geometric transforms are scale, translate and rotate.
+
+Scale the coordinates of each vertex (x i, y i) by a factor α.
+x‘i = α xi
+y‘i = α yi
+Translate each vertex (x i, y i) by a given offset (dx, dy).
+x‘i = xi + dx
+y‘i = yi + dy
+Rotate each vertex (x i, y i) by θ degrees counterclockwise, around the origin.
+x‘i = xi cos θ – yi sin θ
+y‘i = yi cos θ + xi sin θ
+(Hint: Know the difference between degrees and radians.  Know what Java uses for parameters to the sin and cos functions and perhaps google “Java Math.toRadians” and “Java Math.toDegrees” )
+
+Write a two-dimensional transformation library by implementing the following API:
+
+public class PolygonTransform { 
+
+   // Returns a new array object that is an exact copy of the given array. 
+   // The given array is not mutated. 
+   public static double[] copy(double[] array)
+    
+   // Scales the polygon by the factor alpha. 
+   public static void scale(double[] x, double[] y, double alpha) 
+
+   // Translates the polygon by (dx, dy). 
+   public static void translate(double[] x, double[] y, double dx, double dy)
+    
+   // Rotates the polygon theta degrees counterclockwise, about the origin. 
+   public static void rotate(double[] x, double[] y, double theta) 
+
+   // Tests each of the API methods by directly calling them. 
+   public static void main(String[] args) 
+}
+Note that the transformation methods scale(), translate() and rotate() mutate the polygons. Here are some example test cases (tests for copy() are not shown):
+
+// Scales polygon by the factor 2.
+StdDraw.setScale(-5.0, +5.0); 
+double[] x = { 0, 1, 1, 0 }; 
+double[] y = { 0, 0, 2, 1 }; 
+double alpha = 2.0; 
+StdDraw.setPenColor(StdDraw.RED); 
+StdDraw.polygon(x, y); 
+scale(x, y, alpha); 
+StdDraw.setPenColor(StdDraw.BLUE);
+StdDraw.polygon(x, y);
+
+
+// Translates polygon by (2, 1).
+StdDraw.setScale(-5.0, +5.0); 
+double[] x = { 0, 1, 1, 0 }; 
+double[] y = { 0, 0, 2, 1 }; 
+double dx = 2.0, dy = 1.0; 
+StdDraw.setPenColor(StdDraw.RED); 
+StdDraw.polygon(x, y); 
+translate(x, y, dx, dy); 
+StdDraw.setPenColor(StdDraw.BLUE);
+StdDraw.polygon(x, y);
+
+
+// Rotates polygon 45 degrees. 
+StdDraw.setScale(-5.0, +5.0); 
+double[] x = { 0, 1, 1, 0 }; 
+double[] y = { 0, 0, 2, 1 }; 
+double theta = 45.0; 
+StdDraw.setPenColor(StdDraw.RED); 
+StdDraw.polygon(x, y); 
+rotate(x, y, theta); 
+StdDraw.setPenColor(StdDraw.BLUE);
+StdDraw.polygon(x, y);
+
+
