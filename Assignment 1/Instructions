@@ -1,0 +1,39 @@
+Write 3 programs and submit on Autolab.
+
+We provide this zip file containing HelloWorld.java, WindChill.java, and OrderCheck.java. For each problem UPDATE and SUBMIT the corresponding file.
+
+Observe the following rules:
+
+DO NOT use if statements on this assignment
+DO NOT use loops on this assignment
+DO NOT add any import statements
+DO NOT add the project statement
+DO NOT change the class name
+DO NOT change the headers of ANY of the given methods
+DO NOT add any new class fields
+DO NOT use System.exit()
+Observe the examples output, display only what the problem is asking for
+
+Hello, World [15 points]. This is everyone’s first program. Write a program HelloWorld.java that, when run, displays the phrase: Hello, World
+% java HelloWorld
+Hello, World
+
+
+Wind chill [15 points]. Given the temperature T (in degrees Fahrenheit) and the wind speed v (in miles per hour), the National Weather Service defines the effective temperature (the wind chill) as follows:
+w = 35.74 + 0.6215 T + (0.4275 T – 35.75) v^0.16
+Write a program WindChill.java that takes two double command-line arguments temperature and velocity and prints the wind chill. 
+NOTE 1: a^b means a to the power of b. Use Math.pow(a,b) to compute a^b.
+NOTE 2: The formula is not valid if T is larger than 50 in absolute value or if v is larger than 120 or less than 3. Assume that the input values testing your program are in range.
+NOTE 3: It is not necessary to round the wind chill value, display the value that is computed.
+NOTE 4: Do not use loops for this program.
+% java WindChill 35.0 10.0
+27.445420
+
+
+Order check [20 points]. Write a program OrderCheck.java that takes four int command-line arguments w, x, y, and z. Define a boolean variable whose value is true if the four values are either in strictly ascending order (w < x < y < z) or strictly descending order (w > x > y > z), and false otherwise. Then, display the boolean variable value.
+NOTE 1: Do not use if statements on this program.
+NOTE 2: Assume that the inputs will always be integers.
+% java OrderCheck 5 10 15 2
+false
+% java OrderCheck 15 11 9 4
+true
