@@ -1,0 +1,110 @@
+Programming
+We provide this ZIP FILE containing WeatherGenerator.java. For each problem update and submit on Autolab.
+
+Observe the following rules:
+
+DO NOT use System.exit().
+DO NOT add the project or package statements.
+DO NOT change the class name.
+DO NOT change the headers of ANY of the given methods.
+DO NOT add any new class fields.
+ONLY display the result as specified by the example for each problem.
+DO NOT print other messages, follow the examples for each problem.
+USE StdIn, StdOut, and StdRandom libraries.
+Overview
+A weather generator produces a “synthetic” time series of weather data for a location based on the statistical characteristics of observed weather at that location. You can think of a weather generator as being a simulator of future weather based on observed past weather. A time series is a collection of observations generated sequentially through time. The special feature of a time series is that successive observations are usually expected to be dependent, in the case of forecasting a day’s weather depends on the previous day’s weather.         
+
+YouTube has literally thousands of videos about weather fronts and how they are connected to the weather. This one from the UK has graphics supporting the idea of persistence (though that word is not used). As you watch it, consider that whatever is causing weather today (high pressure and a warm mass of air creating a sunny, warm day or low pressure and a cool mass of air creating a cloudy, cool day) is possibly still going to be affecting weather tomorrow.  This is the idea of persistence. 
+
+The goal of this assignment will be to see how computation is used in predicting long-range climate patterns. But, you might wonder how we can think about this when we can’t even predict the weather with certainty from one day to the next. Part of the answer is that, with climate, we are trying to identify broad trends like “hotter”, “wetter”, “drier”, not the weather that will be experienced on any particular day. Imagine you are a farmer. Does knowing the number of wet or dry days tell the whole story? Would the pattern be important? If so, what pattern would you like to see? How would you measure this pattern?
+
+Weather and climate rely on probability. It is perhaps the case that most people get their first exposure to probability concepts from listening to weather reports. A forecaster might say “there is a 10% chance of rain” or that “afternoon showers are likely.” Probability and statistics are an integral part of day-to-day weather forecasting because models of real-world phenomena must take into account randomness. Randomness or uncertainty might imply a lack of predictability, but it does not necessarily imply a lack of knowledge or understanding.
+
+Weather data depends on both the time of year and the location. This means that the probabilities used in the simulation need to be associated with both a location and a time of year.The transition probabilities that we will use for Norman are based on historical data, and you might use them to get a sense of the likelihood of certain weather phenomena in the near future. For instance, a farmer might want to run many, many simulations to get an idea of the likelihood of going 20 or more days without rain, and the results might influence the crops that he or she plants. Just as we can base the transition probabilities on historical data, we can also base them on future predictions. For instance, the National Center for Atmospheric Research (NCAR) simulates weather as it responds to assumptions about how various “forcings” (e.g., greenhouse gasses) will evolve in the future. Typically, these models couple an atmospheric model with an ocean model, but more recent versions, the so-called Earth system models, incorporate more components, including land use, sea, and land ice, etc. The models can be used to predict future precipitation patterns and transition probabilities that are based on these forecasts rather than past data.
+
+Assignment Goal
+Since we are just beginning as weather forecasters, we will simplify our predictions to just whether measurable precipitation will fall from the sky. If there is measurable precipitation, we call it a “wet” day. Otherwise, we call it a “dry” day. We will also simplify our next day prediction based on:
+The previous day’s weather.
+The probability of the weather changing from dry/wet to wet of that location in that month. (Weather data)
+A random number
+Weather data depends on both the time of year and the location. This means the probabilities used in our simulation need to be associated with a location and a month. The table below lists the probabilities that a day will be wet, given that the previous day was dry/wet for each month for a weather station near Norman, OK.
+January	February	March	April	May	June	July	August	September	October	November	December
+DryWet	0.27	0.33	0.40	0.46	0.43	0.28	0.12	0.17	0.23	0.21	0.28	0.27
+WetWet	0.55	0.58	0.61	0.69	0.73	0.62	0.45	0.55	0.58	0.55	0.59	0.55
+This table gives the probability of a change from dry to wet or wet to wet. These are “real” numbers that reflect how often the weather changed from dry to wet in that specific location, during the month indicated, over the 30-year period from 1970-2000. Armed with these probabilities, we can turn our simulation into a weather generator for this location. Here’s what it would look like for July in Norman, OK.
+The box called “Random Outcome” means that we observe some random event whose outcomes occur with the probabilities shown on the arrows emanating from the box.
+
+If it is a dry day, we want the outcome to simulate “next day being wet” 12% of the time and “next day being dry” 88% (100%-12%) of the time. A common practice would be to use a random number generator to generate some value between 0 and 1. If the random value is less than .12, we can forecast the next day to be wet, and if it is greater than .12, we can forecast the next day to be dry.
+
+If it’s a wet day, we want to simulate ” next day being wet ” 45% of the time and ” next day being dry” 55% of the time. To do this with our random number generator, we say there is ” next day being wet ” if the random number is less than .45 and “next day being dry”  if it is greater.
+
+In the simulation flowchart to the right, note that two of the four probabilities came from the table. These are the values shown in bold. The probabilities on the other arrows are calculated using the fact that the probabilities must sum to 1.
+
+
+Implementation
+You are given 2 text files named drywet.txt and wetwet.txt. wetwet.txt data file refers to the probability of next day being a wet day if the current day is wet. drywet.txt data file refers to the probability of next day being a wet day if the current day is dry. NOTE: the data for the same location in wetwet.txt and drywet.txt will have the same line number. These files are in the format of: (excerpt from wetwet.txt)
+-97.58 26.02 0.76 0.75 0.77 0.74 0.80 0.86 0.94 0.97 0.89 0.77 0.74 0.77
+
+-97.19 26.03 0.73 0.76 0.75 0.71 0.79 0.85 0.92 0.95 0.90 0.81 0.76 0.75
+
+-98.75 26.35 0.74 0.76 0.76 0.73 0.67 0.84 0.83 0.85 0.80 0.71 0.71 0.76
+…
+In each line, the first and second numbers represent the location’s longitude and latitude. The following 12 numbers represent the probability of the next day being a wet day of the month. For example, on the first line of the excerpt above 0.75 means that in February (4th column), there is a 75% of chance that the next day is a wet day if today is a wet day.
+Pseudocode to predict the weather for the month of June in Norman, OK (probabilities from the table above):
+The first day of the month has a 50% chance to be a wet day. A value in the range [0,0.50) means the
+first day is wet, a value in the range [0.50-1) means the first day is dry.
+
+WHILE not all days for the month have been forecasted
+
+   READ a random value between 0 and 1
+
+   IF today is a wet day THEN 
+      IF the random value is less than or equal to 0.45 THEN
+         The next day will be a wet day 
+      ELSE 
+         The next day will be a dry day
+      ENDIF 
+   ELSE 
+     IF the random value is less than or equal 0.12 THEN 
+        The next day will be a wet day 
+     ELSE 
+        The next day will be a dry day 
+     ENDIF 
+   ENDIF
+ENDWHILE
+The weather generator methods you will be writing for this assignment will:
+
+populateLocationProbabilities: populates two arrays with  the weather data of a certain location.
+forecastGenerator: predict future precipitation pattern for one month.
+oneMonthForcast: use previous methods to prepare the data and predict the weather for a month.
+numberOfWetDryDays: find the number of wet or dry days in a given month’s forecast.
+lengthOfLongestWetDrySpell: find the longest wet or dry spell in a given month’s forecast.
+bestWeekToTravel: find the 7-day period with the most amount of dry days.
+**More details about the methods in the comments in the Java file**
+
+For this assignment, since we are dealing with randomized numbers, it can be very difficult to debug your code if it, so AutoLab will provide you with something called a “seed” if your code fails a certain test case to help you reproduce the error.
+
+Use StdRandom.setSeed(someLongNumber); to set the seed provided. Doing so will cause all your future calls on StdRandom.uniform() to give the same result on different runs of the program, allowing your program to reproduce the exact numbers generated by Autolab.
+
+A bit more on seeds: seed (also known as random seed) is basically what computers use to generate random numbers. True randomness does not really exist in computers. One way to generate a random number is to take some unrelated information and process it in a certain way such that it will generate an evenly distributed number. Oftenly, if the user(you) does not provide StdRandom with a seed, it will generate a random seed itself. But we can manually set seed at the beginning of your program by using StdRandom.setSeed(someLongNumber); doing so will cause all your future calls on StdRandom.uniform() to give the same result on different runs of the program.
+
+For example:
+
+StdRandom.setSeed(1617155768130L);
+
+System.out.println( StdRandom.uniform() );
+
+System.out.println( StdRandom.uniform() );
+
+System.out.println( StdRandom.uniform() );
+Will always result in the following numbers being generated (in any computer):
+
+0.8686254179738488
+
+0.04875107145027979
+
+0.5747992812879426
+Use the provided main method to test your methods. To generate the weather for location at longitude -98.76 and latitude 26.70 for the month of February do:
+
+java WeatherGenerator -98.76 26.70 3
+Always start reading code at the main() method. That will help you understand the structure of the program.
