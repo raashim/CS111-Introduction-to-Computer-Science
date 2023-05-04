@@ -1,0 +1,85 @@
+Recursion – 50 course points
+This assignment consists of writing a program that plots a Sierpinski triangle.  A second program entails a function that appends strings recursively.
+
+Refer to our Programming Assignments FAQ for instructions on how to install VSCode, how to use the command line and how to submit your assignments.
+
+Start your assignment early.
+
+Programming
+We provide this ZIP FILE containing Sierpinski.java and libraries needed for this assignment.
+
+We provide this ZIP FILE containing RecursiveAppend.java and libraries needed for this assignment.
+
+Observe the following rules:
+
+DO NOT use System.exit().
+DO NOT add the project or package statements.
+DO NOT add import statements.
+DO NOT change the class name.
+DO NOT change the headers of ANY of the given methods.
+DO NOT add any new class fields.
+ONLY display the result as specified by the example for each problem.
+DO NOT print other messages, follow the examples for each problem.
+USE StdIn, StdOut, StdRandom, and StdDraw libraries.
+Sierpinski (25 points). The Sierpinski triangle is an example of a fractal pattern like the H-tree pattern from Section 2.3 of the textbook.
+
+
+order 1
+
+order 2
+
+order 3
+
+order 4
+
+order 5
+
+order 6
+The Polish mathematician Wacław Sierpiński described the pattern in 1915, but it has appeared in Italian art since the 13th century. Though the Sierpinski triangle looks complex, it can be generated with a short recursive function. Your main task is to write a recursive function sierpinski() that plots a Sierpinski triangle of order n to standard drawing. Think recursively: sierpinski() should draw one filled equilateral triangle (pointed downwards) and then call itself recursively three times (with an appropriate stopping condition). It should draw 1 filled triangle for n = 1; 4 filled triangles for n = 2; and 13 filled triangles for n = 3; and so forth.
+
+API specification. When writing your program, exercise modular design by organizing it into four functions, as specified in the following API:
+
+public class Sierpinski { 
+
+   // Height of an equilateral triangle whose sides are of the specified length. 
+   public static double height(double length) 
+
+   // Draws a filled equilateral triangle whose bottom vertex is (x, y) 
+   // of the specified side length. 
+   public static void filledTriangle(double x, double y, double length) 
+
+   // Draws a Sierpinski triangle of order n, such that the largest filled 
+   // triangle has bottom vertex (x, y) and sides of the specified length. 
+   public static void sierpinski(int n, double x, double y, double length) 
+
+   // Takes an integer command-line argument n; 
+   // draws the outline of an equilateral triangle (pointed upwards) of length 1; 
+   // whose bottom-left vertex is (0, 0) and bottom-right vertex is (1, 0); and 
+   // draws a Sierpinski triangle of order n that fits snugly inside the outline. 
+   public static void main(String[] args) 
+}
+Restrictions: You may not change either the scale or size of the drawing window.
+
+This video may be helpful to understand how the triangles are drawn.
+
+Recursive Append (25 points). On RecursiveAppend.java write a recursive method appendNTimes that receives two arguments, a string and an integer. The method appendNTimes returns the original string appended to the original string n times.
+
+Use the following method header:public static String appendNTimes (String original, int n)
+Examples:
+appendNTimes("cat", 0) returns “cat”
+appendNTimes("cat", 1) returns “catcat”
+appendNTimes("cat", 2) returns “catcatcat”
+The following restrictions apply to method appendNTimes:
+YOUR CODE MUST BE RECURSIVE
+Do not use loops (while, do/while, or for).
+Your code must return a string without extra space, comma or any other character that is not in the original string
+You may write your own main method to test your appendNTimes method. Autolab will ignore your main method.
+
+Before submission
+Collaboration policy. Read our collaboration policy here.
+Update @author. Update the @author tag of the files with your name, email and netid.
+Submitting the assignment. Submit Sierpinski.java via the web submission system called Autolab. To do this, click the Assignments link from the course website; click the Submit link for that assignment.
+Getting help
+If anything is unclear, don’t hesitate to drop by office hours or post a question on Piazza. Find instructors office hours by clicking the Staff  link from the course website. In addition to office hours we have the CAVE (Collaborative Academic Versatile Environment), a community space staffed with lab assistants which are undergraduate students further along the CS major to answer questions.
+
+Problem by Kevin Wayne and Alan Kaplan.
