@@ -1,5 +1,5 @@
 Recursion – 50 course points
-This assignment consists of writing a program that plots a Sierpinski triangle.  A second program entails a function that appends strings recursively.
+This assignment consists of writing a program that plots a Sierpinski triangle.
 
 Refer to our Programming Assignments FAQ for instructions on how to install VSCode, how to use the command line and how to submit your assignments.
 
@@ -8,7 +8,6 @@ Start your assignment early.
 Programming
 We provide this ZIP FILE containing Sierpinski.java and libraries needed for this assignment.
 
-We provide this ZIP FILE containing RecursiveAppend.java and libraries needed for this assignment.
 
 Observe the following rules:
 
@@ -61,19 +60,6 @@ public class Sierpinski {
 Restrictions: You may not change either the scale or size of the drawing window.
 
 This video may be helpful to understand how the triangles are drawn.
-
-Recursive Append (25 points). On RecursiveAppend.java write a recursive method appendNTimes that receives two arguments, a string and an integer. The method appendNTimes returns the original string appended to the original string n times.
-
-Use the following method header:public static String appendNTimes (String original, int n)
-Examples:
-appendNTimes("cat", 0) returns “cat”
-appendNTimes("cat", 1) returns “catcat”
-appendNTimes("cat", 2) returns “catcatcat”
-The following restrictions apply to method appendNTimes:
-YOUR CODE MUST BE RECURSIVE
-Do not use loops (while, do/while, or for).
-Your code must return a string without extra space, comma or any other character that is not in the original string
-You may write your own main method to test your appendNTimes method. Autolab will ignore your main method.
 
 Before submission
 Collaboration policy. Read our collaboration policy here.
