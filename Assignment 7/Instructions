@@ -1,0 +1,271 @@
+Using Abstract Data Types – 85 course points
+This assignment consists of two parts to exercise your ability to work with Strings and recursion.
+
+Refer to our Programming Assignments FAQ for instructions on how to install VSCode, how to use the command line and how to submit your assignments.
+
+Programming
+Write 2 programs and submit on Autolab.
+
+We provide this ZIP FILE containing RecursiveAppend.java, and LeasingCost.java. For each problem update and submit the corresponding file.
+
+Observe the following rules:
+
+DO NOT use System.exit().
+DO NOT add project or package statements.
+DO NOT change the class name.
+DO NOT change the headers of ANY of the given methods.
+DO NOT add any new class fields (instance variables).
+ONLY display the result as specified by the example for each problem.
+DO NOT print other messages, follow the examples for each problem.
+You may USE the StdOut library.
+Recursive Append (30 points). On RecursiveAppend.java write a recursive method appendNTimes that receives two arguments, a string and an integer. The method appendNTimes returns the original string appended to the original string n times.
+Use the following method header:public static String appendNTimes (String original, int n)
+Examples:
+appendNTimes("cat", 0) returns “cat”
+appendNTimes("cat", 1) returns “catcat”
+appendNTimes("cat", 2) returns “catcatcat”
+The following restrictions apply to method appendNTimes:
+YOUR CODE MUST BE RECURSIVE
+Do not use loops (while, do/while, or for).
+Your code must return a string without extra space, comma or any other character that is not in the original string
+You may write your own main method to test your appendNTimes method. Autolab will ignore your main method.
+
+2. Leasing Cost (55 points) The purpose of this assignment is to build an analysis model to explore what-if  scenarios when buying a new car. We will consider two types of vehicles on the market:
+
+Gasoline powered vehicles that operate solely using gasoline.
+Fully electric vehicles that operate solely on battery-stored power and use no gasoline. The batteries are charged by plugging in to an external power source.
+Some of the main considerations that factor into your decision when looking for a car might include cost, convenience, driving experience,  and or environmental reasons.
+
+Of the factors above, we can quantify cost and environmental impact (in terms of CO2 emission). To build a model to help with your decision, we’ll begin with the things that can be quantified. Since it is most familiar, let’s start with cost.
+
+Considering Leasing Cost
+To simplify our model assume leased cars. When leasing a car we only consider:
+
+The amount in dollars due at signing
+The number months for the entire lease 
+The lease monthly cost
+The mileage allowance per month
+The cost of the charger if the vehicle is an electrical car
+We also consider the price of gas for gasoline-powered vehicles and electricity for electricity-powered vehicles. Because both gasoline and electricity prices vary from time to time, we will obtain this information from the user when we execute the program.
+
+We can break down the total cost into 2~3 parts:
+
+Fuel cost: totalMiles / milesPerUnitOfFuel * fuelPrice
+Lease cost: dueAtSigning + (numberOfMonths*monthlyCost)
+Charger cost if the vehicle is electric
+Then we can find the total cost to lease a car by simply summing all parts together.
+
+Considering Carbon Emissions
+
+Many people choose to buy an electric car, not because of cost but out of concern for the environment. This is a benefit that is difficult to fully capture, but certain things like greenhouse gas emissions can be measured.
+
+Greenhouse gases (GHGs) trap heat in the Earth’s atmosphere and are believed to contribute to global climate change. Carbon dioxide (CO2) is the main GHG produced by human activity, and the two major human activities responsible for CO2 emission are electric power generation and combustion of fossil fuels for transportation. You can read a little more about CO2 emission on the EPA website.
+
+Gas-powered car:
+
+According to the EPA, there are 8.887 kg of CO2 released with the combustion of each gallon of gasoline. This is the amount of CO2 coming out the tailpipe of a gas powered vehicle.
+
+Given the formula:
+
+Total emitted CO2 = gallonsOfGasUsed * 8.887 kg/gallon
+
+= totalMiles/milesPerGallon * 8.887 kg/gallon
+
+This means that we can estimate the total CO2 emitted over the 36 months lease of a vehicle.
+
+Assuming that a vehicle consumes 1 gallon of gas for every 34 miles and that the lease allowance milage is 1,000 miles per month, we can compute the number of gallons of gasoline needed to drive an estimated 36,000 miles and multiplying by 8.887kg/gal as follows:
+
+36,000mi/(34 mi/gal) x 8.887 kg/gal = 1,058.82 gal x 8.887kg/gal = 9,409.76kg.
+
+To drive 36,000 miles, the vehicle uses 1,058.82 gallons of gasoline and produces 9,409.76 kg of CO2.
+
+You can do this same calculation for any gas-powered car by plugging in the number of miles driven and the fuel efficiency of the vehicle in miles per gallon.
+
+Electricity-powered car:
+
+According to the EPA’s Power Profiler website, 998.4 pounds of CO2 are emitted per mWh on average across the United States.
+
+For this assignment, since we are working with miles and kilograms, we can covert pounds to kilograms.There are about .45kg per pound.
+
+( 998.4 lbs CO2/ MWh * 1MWh/1000Kwh * 0.45kg/lb ) = 0.453 kg/kWh (this data is provided to you in Fuel.java).
+
+Now, let us figure out how much CO2 is emitted in generating the electricity to charge the battery of an electricity-powered car over a 36 months lease by estimating the total energy for battery charging needed to drive 36,000 miles.
+
+A very similar formula can be used for electricity car here:
+
+Total CO2 = kW⋅hOfElectricityUsed * 0.453 kg/kW⋅h
+
+= totalMiles/milesPerKW⋅h * 0.453 kg/kW⋅h
+
+Assuming the vehicle consumes 1 kW⋅h for every 3 miles and that the lease allowance mileage is 1,000 miles per month.
+
+For 3 years, there are 36 months. We can estimate there are a total of 36,000 miles during the lease. To find the total electricity used, we do 36,000 / (3 miles/kW⋅h) = 12,000 kW⋅h
+
+Total CO2 emissions  = 12,000 * 0.453 kg/kW⋅h = 5436 kg of CO2
+
+What you need to do for this assignment
+In this assignment, you will be provided with the following files:
+
+Fuel.java
+Objects built from Fuel class contains informations of:
+Fuel type
+kg of CO2 emitted from 1 gallon of gas or 1 kWh of electricity
+Miles can the car drive per gallon of gas or kWh of electricity 
+Cost of the charger
+the Fuel objects built from it will be stored in Vehicle objects
+Lease.java
+Objects built from Lease class contains informations of:
+The total amount of cash that is due at the time a car lease contract is signed
+The length of the lease in month
+The monthly cost for the lease
+Mileage allowance per month during the lease
+Vehicle.java
+Objects built from Vehicle class contains:
+Name of the vehicle,
+A fuel object and a lease object described above
+The amount of CO2 emission during the lease 
+You need to calculate and set the value in LeasingCost.java
+The fuel cost and the total cost during the lease period
+You need to calculate and set the value in LeasingCost.java
+Vehicles.txt
+Text contains information about vehicles
+LeasingCost.java
+This is the only file you need to write code in.
+Provided methods:
+createAllVehicles (need createVehicle() for it to work)
+computeCO2
+computeFuelCost
+computeLeaseCost
+main
+Methods need to be completed
+createVehicle
+This method creates and returns a Vehicle object with name, Lease, and Fuel properly populated based on the given string
+The string given to this method is each line of description in vehicles.txt
+computeCO2EmissionsAndCost
+The method calculates and assigns CO2Emission, FuelCost, leastCost, of each vehicle.
+Use getter and setter methods to get and set values in each vehicle objec
+For convenience, it is suggested to use: computeCO2(), computeFuelCost(), computeLeaseCost() with your calculation. To avoid unnecessary math mistakes.
+**more details in the files**
+
+Example output:
+
+$ javac LeasingCars.java
+
+$ java LeasingCars vehicles.txt 3.85 11.0
+
+____________________
+ 
+Vehicle civic
+Fuel
+        Type: Gas
+        Usage: 34.0
+Lease
+        Due at signing: 1000.0
+        Lease Length: 3
+        Montly cost: 295.0
+        mileage allowance: 1200
+ 
+CO2 Emmision: 940.98 kg/CO2
+ 
+Cost
+        Fuel : 407.65 dollars for 3 months of lease
+        Total: 2292.65 dollars for 3 months of lease
+ 
+____________________
+ 
+Vehicle venza
+Fuel
+        Type: Gas
+        Usage: 37.0
+Lease
+        Due at signing: 1500.0
+        Lease Length: 12
+        Montly cost: 179.0
+        mileage allowance: 1000
+ 
+CO2 Emmision: 2882.27 kg/CO2
+ 
+Cost
+        Fuel : 1248.65 dollars for 12 months of lease
+        Total: 4896.65 dollars for 12 months of lease
+ 
+____________________
+ 
+Vehicle 330i
+Fuel
+        Type: Gas
+        Usage: 30.0
+Lease
+        Due at signing: 1500.0
+        Lease Length: 36
+        Montly cost: 123.0
+        mileage allowance: 1500
+ 
+CO2 Emmision: 15996.60 kg/CO2
+ 
+Cost
+        Fuel : 6930.00 dollars for 36 months of lease
+        Total: 12858.00 dollars for 36 months of lease
+ 
+____________________
+ 
+Vehicle LeafS
+Fuel
+        Type: Electric
+        Usage: 3.0
+        charger: 300.0
+Lease
+        Due at signing: 1200.0
+        Lease Length: 24
+        Montly cost: 153.0
+        mileage allowance: 1000
+ 
+CO2 Emmision: 3624.00 kg/CO2
+ 
+Cost
+        Fuel : 88000.00 dollars for 24 months of lease
+        Total: 93172.00 dollars for 24 months of lease
+ 
+____________________
+ 
+Vehicle LeafSPlus
+Fuel
+        Type: Electric
+        Usage: 4.0
+        charger: 20.0
+Lease
+        Due at signing: 1500.0
+        Lease Length: 36
+        Montly cost: 180.0
+        mileage allowance: 2000
+ 
+CO2 Emmision: 8154.00 kg/CO2
+ 
+Cost
+        Fuel : 198000.00 dollars for 36 months of lease
+        Total: 206000.00 dollars for 36 months of lease
+ 
+____________________
+ 
+Vehicle Bolt
+Fuel
+        Type: Electric
+        Usage: 3.5
+        charger: 500.0
+Lease
+        Due at signing: 1708.0
+        Lease Length: 12
+        Montly cost: 292.0
+        mileage allowance: 1000
+ 
+CO2 Emmision: 1553.14 kg/CO2
+ 
+Cost
+        Fuel : 37714.29 dollars for 12 months of lease
+        Total: 43426.29 dollars for 12 months of lease
+Before submission
+Collaboration policy. Read our collaboration policy here.
+Update @author. Update the @author tag of the files with your name, email and netid.
+Submitting the assignment. Submit RecursiveAppend.java, and LeasingCost.java separately via the web submission system called Autolab. To do this, click the Assignments link from the course website; click the Submit link for that assignment.
+Getting help
+If anything is unclear, don’t hesitate to drop by office hours or post a question on Piazza. Find instructors office hours by clicking the Staff  link from the course website. In addition to office hours we have the CAVE (Collaborative Academic Versatile Environment), a community space staffed with lab assistants which are undergraduate students further along the CS major to answer questions.
